@@ -41,7 +41,7 @@ public class CarroServiceTest {
 
         Carro resultado = carroService.save(carro);
 
-        assertEquals("Civic", resultado.getModelo());
+        assertEquals("Ferrari", resultado.getModelo());
         verify(carroRepository, times(1)).save(carro);
     }
 
