@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,18 +35,20 @@ public class CarroServiceTest {
         carro.setAno(2022);
     }
 
-    // cadastro
     @Test
     void deveSalvarCarro() {
         when(carroRepository.save(carro)).thenReturn(carro);
 
         Carro resultado = carroService.save(carro);
 
+        assertNotNull(resultado);
+        assertEquals(1L, resultado.getId());
         assertEquals("Civic", resultado.getModelo());
+        assertEquals(2022, resultado.getAno());
+
         verify(carroRepository, times(1)).save(carro);
     }
 
-    // busca por id
     @Test
     void deveBuscarCarroPorId() {
         when(carroRepository.findById(1L)).thenReturn(Optional.of(carro));
@@ -53,19 +56,39 @@ public class CarroServiceTest {
         Optional<Carro> resultado = carroService.findById(1L);
 
         assertTrue(resultado.isPresent());
+        assertEquals(1L, resultado.get().getId());
         assertEquals("Civic", resultado.get().getModelo());
+        assertEquals(2022, resultado.get().getAno());
+
+        verify(carroRepository, times(1)).findById(1L);
     }
 
-    // listar todos
+    @Test
+    void deveRetornarOptionalVazioQuandoCarroNaoExiste() {
+        when(carroRepository.findById(2L)).thenReturn(Optional.empty());
+
+        Optional<Carro> resultado = carroService.findById(2L);
+
+        assertFalse(resultado.isPresent());
+
+        verify(carroRepository, times(1)).findById(2L);
+    }
+
     @Test
     void deveListarTodosCarros() {
-        when(carroRepository.findAll())
-                .thenReturn(Arrays.asList(carro));
+        List<Carro> carros = Arrays.asList(carro);
 
-        assertEquals(1, carroService.findAll().size());
+        when(carroRepository.findAll()).thenReturn(carros);
+
+        List<Carro> resultado = carroService.findAll();
+
+        assertNotNull(resultado);
+        assertEquals(1, resultado.size());
+        assertEquals("Civic", resultado.get(0).getModelo());
+
+        verify(carroRepository, times(1)).findAll();
     }
 
-    // atualizar
     @Test
     void deveAtualizarCarro() {
         carro.setModelo("Corolla");
@@ -74,10 +97,14 @@ public class CarroServiceTest {
 
         Carro atualizado = carroService.update(carro);
 
+        assertNotNull(atualizado);
+        assertEquals(1L, atualizado.getId());
         assertEquals("Corolla", atualizado.getModelo());
+        assertEquals(2022, atualizado.getAno());
+
+        verify(carroRepository, times(1)).save(carro);
     }
 
-    // remover
     @Test
     void deveRemoverCarro() {
         doNothing().when(carroRepository).deleteById(1L);
