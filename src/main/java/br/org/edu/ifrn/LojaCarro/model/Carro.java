@@ -1,6 +1,10 @@
 package br.org.edu.ifrn.LojaCarro.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Carro {
@@ -8,8 +12,14 @@ public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String modelo;
-    int ano;
+
+    @NotBlank
+    @Size(max = 50)
+    private String modelo;
+
+    @Min(1900)
+    @Max(2100)
+    private int ano;
 
     public Long getId() {
         return id;
