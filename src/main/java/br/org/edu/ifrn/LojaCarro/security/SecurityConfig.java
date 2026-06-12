@@ -48,30 +48,29 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // libera login
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**")
+                        .permitAll()
 
-                        // apenas gerente pode cadastrar usuários
-                        .requestMatchers(HttpMethod.POST, "/usuarios")
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/carro/**")
                         .hasRole("GERENTE")
 
-                        // gerente pode excluir carros
-                        .requestMatchers(HttpMethod.DELETE, "/carro/**")
-                        .hasRole("GERENTE")
+                        .requestMatchers(HttpMethod.POST,
+                                "/carro/**")
+                        .hasAnyRole("GERENTE",
+                                "VENDEDOR")
 
-                        // gerente e vendedor podem cadastrar
-                        .requestMatchers(HttpMethod.POST, "/carro/**")
-                        .hasAnyRole("GERENTE", "VENDEDOR")
+                        .requestMatchers(HttpMethod.PUT,
+                                "/carro/**")
+                        .hasAnyRole("GERENTE",
+                                "VENDEDOR")
 
-                        // gerente e vendedor podem atualizar
-                        .requestMatchers(HttpMethod.PUT, "/carro/**")
-                        .hasAnyRole("GERENTE", "VENDEDOR")
-
-                        // qualquer usuário autenticado pode consultar
-                        .requestMatchers(HttpMethod.GET, "/carro/**")
+                        .requestMatchers(HttpMethod.GET,
+                                "/carro/**")
                         .authenticated()
 
-                        .anyRequest().authenticated()
+                        .anyRequest()
+                        .authenticated()
                 )
 
                 .addFilterBefore(
@@ -80,5 +79,4 @@ public class SecurityConfig {
                 );
 
         return http.build();
-    }
-}
+    }}
