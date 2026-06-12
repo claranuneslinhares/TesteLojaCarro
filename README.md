@@ -121,13 +121,13 @@ O sistema tratou o valor como texto simples.
 ### Clonar o projeto
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone <https://github.com/claranuneslinhares/TesteLojaCarro.git>
 ```
 
 ### Entrar no projeto
 
 ```bash
-cd LojaCarro
+cd TesteLojaCarro
 ```
 
 ### Executar
