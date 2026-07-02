@@ -51,9 +51,12 @@ public class AuthController {
     public Usuario cadastrarUsuario(
             @RequestBody Usuario usuario) {
 
+        System.out.println("USERNAME = " + usuario.getUsername());
+        System.out.println("PASSWORD = " + usuario.getPassword());
+        System.out.println("ROLE = " + usuario.getRole());
+
         usuario.setPassword(
-                passwordEncoder.encode(
-                        usuario.getPassword()));
+                passwordEncoder.encode(usuario.getPassword()));
 
         return usuarioRepository.save(usuario);
     }

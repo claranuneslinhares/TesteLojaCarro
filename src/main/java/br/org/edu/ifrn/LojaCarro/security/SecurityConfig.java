@@ -40,21 +40,20 @@ public class SecurityConfig {
             throws Exception {
 
         http
+                .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
-
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/auth/**")
-                        .permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        .requestMatchers(HttpMethod.DELETE,
-                                "/carro/**")
+                        .requestMatchers("/auth/**").permitAll()
+
+                        .requestMatchers(HttpMethod.DELETE, "/carro/**")
                         .hasRole("GERENTE")
-
                         .requestMatchers(HttpMethod.POST,
                                 "/carro/**")
                         .hasAnyRole("GERENTE",
