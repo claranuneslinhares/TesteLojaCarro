@@ -12,8 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -102,7 +101,7 @@ class CarroControllerTest {
         carro.setAno(2022);
 
         when(carroService.findAll())
-                .thenReturn(Arrays.asList(carro));
+                .thenReturn(List.of(carro));
 
         mockMvc.perform(get("/carro"))
                 .andExpect(status().isOk())

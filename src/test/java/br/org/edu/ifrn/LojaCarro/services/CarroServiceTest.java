@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,8 +75,7 @@ public class CarroServiceTest {
 
     @Test
     void deveListarTodosCarros() {
-        List<Carro> carros = Arrays.asList(carro);
-
+        List<Carro> carros = List.of(carro);
         when(carroRepository.findAll()).thenReturn(carros);
 
         List<Carro> resultado = carroService.findAll();
