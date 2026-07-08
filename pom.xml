@@ -19,7 +19,7 @@
 	<description>Loja de Carro</description>
 
 	<properties>
-		<java.version>26</java.version>
+		<java.version>17</java.version>
 
 	</properties>
 
@@ -119,7 +119,6 @@
 				<configuration>
 					<excludes>
 						<exclude>**/dto/*</exclude>
-						<exclude>**/security/*</exclude>
 						<exclude>**/*Application*</exclude>
 					</excludes>
 				</configuration>
@@ -162,13 +161,13 @@
 
 				<configuration>
 					<targetClasses>
-						<param>br.org.edu.ifrn.LojaCarro.services.*</param>
-						<param>br.org.edu.ifrn.LojaCarro.controllers.*</param>
+						<param>br.org.edu.ifrn.lojacarro.services.*</param>
+						<param>br.org.edu.ifrn.lojacarro.controllers.*</param>
 					</targetClasses>
 
 					<targetTests>
-						<param>br.org.edu.ifrn.LojaCarro.services.*Test</param>
-						<param>br.org.edu.ifrn.LojaCarro.controllers.*Test</param>
+						<param>br.org.edu.ifrn.lojacarro.services.*Test</param>
+						<param>br.org.edu.ifrn.lojacarro.controllers.*Test</param>
 					</targetTests>
 
 					<outputFormats>
